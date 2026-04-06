@@ -1,5 +1,3 @@
-from random import choice
-
 from system.models import Livros
 livros = []
 def cadastrar_livro():
