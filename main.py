@@ -1,4 +1,6 @@
+from system.database import criar_tabela
 from services.livro_service import cadastrar_livro, listar_livros, emprestar_livro, devolver_livro
+criar_tabela()
 def mostrar_menu():
     print("1 - Cadastrar livro")
     print("2 - Ver livros")

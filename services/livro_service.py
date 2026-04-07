@@ -1,6 +1,8 @@
 from system.models import Livros
-livros = []
+from system.database import listar_livros_db
+from system.database import inserir_livros
 def cadastrar_livro():
+    livros = listar_livros_db()
     nome = input("Nome do livro: ").strip()
     autor = input("Autor: ").strip()
     if not nome or not autor:
@@ -10,10 +12,10 @@ def cadastrar_livro():
         if livro.nome.lower() == nome.lower():
             print("Esse livro já existe!")
             return
-    novo_livro = Livros(nome, autor)
-    livros.append(novo_livro)
+    inserir_livros(nome, autor)
     print("livro cadastrado com sucesso!")
 def listar_livros():
+    livros = listar_livros_db()
     if not livros:
         print("A lista está vazia!")
         return
@@ -34,10 +36,11 @@ def devolver_livro():
     devolver = input("Qual livro você deseja devolver? ").strip().lower()
     for livro in livros:
         if livro.nome.lower() == devolver:
-            if livro.disponivel:
+            if not livro.disponivel:
                 livro.disponivel = True
                 print(f"Livro \"{livro.nome}\" devolvido com êxito!")
             else:
                 print(f"O livro \"{devolver}\" já está disponível")
             return
     print(f"Livro \"{devolver}\" não encontrado.")
+livros = listar_livros_db()
