@@ -34,3 +34,29 @@ def listar_livros_db():
     for nome, autor, disponivel in dados:
         livros.append(Livros(nome, autor, bool(disponivel)))
     return livros
+def alugar_livro_db(nome):
+    conn = conectar()
+    cursor = conn.cursor()
+    cursor.execute("""
+    UPDATE livros
+    set disponivel = 0
+    WHERE LOWER(nome) = LOWER(?)
+    AND disponivel = 1
+    """, (nome,))
+    conn.commit()
+    alterados = cursor.rowcount
+    conn.close()
+    return alterados
+def devolver_livro_db(nome):
+    conn = conectar()
+    cursor = conn.cursor()
+    cursor.execute("""
+    UPDATE livros
+    set disponivel = 1
+    WHERE LOWER(nome) = LOWER(?)
+    AND disponivel =0
+    """, (nome,))
+    conn.commit()
+    alterados = cursor.rowcount
+    conn.close()
+    return alterados

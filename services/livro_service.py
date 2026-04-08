@@ -1,6 +1,5 @@
 from system.models import Livros
-from system.database import listar_livros_db
-from system.database import inserir_livros
+from system.database import inserir_livros ,listar_livros_db, alugar_livro_db, devolver_livro_db
 def cadastrar_livro():
     livros = listar_livros_db()
     nome = input("Nome do livro: ").strip()
@@ -22,25 +21,17 @@ def listar_livros():
     for livro in livros:
         print(livro)
 def emprestar_livro():
-    choice = input("Qual o nome do livro que deseja alugar? ").strip().lower()
-    for livro in livros:
-        if livro.nome.lower() == choice:
-            if livro.disponivel:
-                livro.disponivel = False
-                print(f"Livro \"{livro.nome}\" alugado com êxito!")
-            else:
-                print(f"O livro \"{livro.nome}\" Já foi alugado")
-            return
-    print(f"O livro \"{choice}\" não foi encontrado.")
+    nome = input("Qual o nome do livro que deseja alugar? ").strip().lower()
+    resultado = alugar_livro_db(nome)
+    if resultado:
+        print(f"Livro \"{nome}\" emprestado com sucesso!")
+    else:
+        print("Livro não encontrado ou já emprestado.")
 def devolver_livro():
-    devolver = input("Qual livro você deseja devolver? ").strip().lower()
-    for livro in livros:
-        if livro.nome.lower() == devolver:
-            if not livro.disponivel:
-                livro.disponivel = True
-                print(f"Livro \"{livro.nome}\" devolvido com êxito!")
-            else:
-                print(f"O livro \"{devolver}\" já está disponível")
-            return
-    print(f"Livro \"{devolver}\" não encontrado.")
+    nome = input("Qual livro você deseja devolver? ").strip().lower()
+    resultado = devolver_livro_db(nome)
+    if resultado:
+        print(f"Livro \"{nome}\" devolvido com sucesso!")
+    else:
+        print("Livro não encontrado ou não alugado.")
 livros = listar_livros_db()
