@@ -1,8 +1,8 @@
 from system.database import criar_tabela
 from services.livro_service import cadastrar_livro, listar_livros, emprestar_livro, devolver_livro
-from system.database import limpar_tabela
+#from system.database import limpar_tabela
 
-limpar_tabela()
+#limpar_tabela()
 criar_tabela()
 
 def mostrar_menu():
