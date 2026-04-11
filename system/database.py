@@ -1,10 +1,13 @@
 import sqlite3
 import os
+from system.models import Livros
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DB_PATH = os.path.join(BASE_DIR, "data.db")
-from system.models import Livros
+
 def conectar():
     return sqlite3.connect(DB_PATH)
+
 def criar_tabela():
     conn = conectar()
     cursor = conn.cursor()
@@ -18,6 +21,7 @@ def criar_tabela():
     """) #cria tabela se não existir uma com esse nome
     conn.commit()
     conn.close()
+
 def inserir_livros(nome, autor):
     conn = conectar()
     cursor = conn.cursor()
@@ -27,6 +31,7 @@ def inserir_livros(nome, autor):
     )
     conn.commit()
     conn.close()
+
 def listar_livros_db():
     conn = conectar()
     cursor = conn.cursor()
@@ -37,6 +42,7 @@ def listar_livros_db():
     for nome, autor, disponivel in dados:
         livros.append(Livros(nome, autor, bool(disponivel)))
     return livros
+
 def alugar_livro_db(nome):
     conn = conectar()
     cursor = conn.cursor()
@@ -50,6 +56,7 @@ def alugar_livro_db(nome):
     alterados = cursor.rowcount
     conn.close()
     return alterados
+
 def devolver_livro_db(nome):
     conn = conectar()
     cursor = conn.cursor()
