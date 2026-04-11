@@ -4,20 +4,20 @@ from system.models import Livros
 
 livro_bp = Blueprint("livros", __name__)
 
-@livro_bp("/livros", methods=["GET"])
+@livro_bp.route("/livros", methods=["GET"])
 def listar():
     livros = listar_livros_db()
 
     resultado = []
     for livro in livros:
         resultado.append({
-            "nome": livro[0],
-            "autor": livro[1],
-            "disponivel": livro[2]
+            "nome": livro.nome,
+            "autor": livro.autor,
+            "disponivel": livro.disponivel
         })
     return jsonify(resultado)
 
-@livro_bp("/livros", methods=["POST"])
+@livro_bp.route("/livros", methods=["POST"])
 def cadastrar():
     dados = request.json
     nome = dados.get("nome")

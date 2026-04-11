@@ -70,3 +70,12 @@ def devolver_livro_db(nome):
     alterados = cursor.rowcount
     conn.close()
     return alterados
+
+def limpar_tabela():
+    conn = conectar()
+    cursor = conn.cursor()
+
+    cursor.execute("DELETE FROM livros")
+
+    conn.commit()
+    conn.close()
