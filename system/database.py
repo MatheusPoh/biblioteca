@@ -1,7 +1,10 @@
 import sqlite3
+import os
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+DB_PATH = os.path.join(BASE_DIR, "data.db")
 from system.models import Livros
 def conectar():
-    return sqlite3.connect("data.db")
+    return sqlite3.connect(DB_PATH)
 def criar_tabela():
     conn = conectar()
     cursor = conn.cursor()
