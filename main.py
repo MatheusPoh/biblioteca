@@ -1,8 +1,6 @@
 from system.database import criar_tabela
-from services.livro_service import cadastrar_livro, listar_livros, emprestar_livro, devolver_livro
-#from system.database import limpar_tabela
+from services.livro_service import cadastrar_livro, listar_livros, emprestar_livro, devolver_livro, deletar_livro
 
-#limpar_tabela()
 criar_tabela()
 
 def mostrar_menu():
@@ -10,7 +8,8 @@ def mostrar_menu():
     print("2 - Ver livros")
     print("3 - Alugar livros")
     print("4 - Devolver livro")
-    print("5 - Sair")
+    print("5 - Deletar livro")
+    print("6 - Sair")
 
 def main():
     print("Olá, digite o número do serviço que deseja")
@@ -32,6 +31,8 @@ def main():
         elif choice == "4":
             devolver_livro()
         elif choice == "5":
+            deletar_livro()
+        elif choice == "6":
             print("Até mais!")
             break
         else:

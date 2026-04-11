@@ -1,4 +1,4 @@
-from system.database import inserir_livros ,listar_livros_db, alugar_livro_db, devolver_livro_db
+from system.database import inserir_livros ,listar_livros_db, alugar_livro_db, devolver_livro_db, deletar_livro_db
 
 def cadastrar_livro():
     livros = listar_livros_db()
@@ -47,5 +47,11 @@ def devolver_livro():
     else:
         print("Livro não encontrado ou não alugado.")
 
+def deletar_livro():
+    nome = input("Qual livro você deseja deletar? ").strip().lower()
+    resultado = deletar_livro_db(nome)
 
-livros = listar_livros_db()
+    if resultado:
+        print(f"Livro \"{nome}\" deletado com sucesso!")
+    else:
+        print("Livro não encontrado.")

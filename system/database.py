@@ -18,7 +18,7 @@ def criar_tabela():
         autor TEXT,
         disponivel BOOLEAN
     )
-    """) #cria tabela se não existir uma com esse nome
+    """)
     conn.commit()
     conn.close()
 
@@ -46,36 +46,45 @@ def listar_livros_db():
 def alugar_livro_db(nome):
     conn = conectar()
     cursor = conn.cursor()
+
     cursor.execute("""
     UPDATE livros
-    set disponivel = 0
+    SET disponivel = 0
     WHERE LOWER(nome) = LOWER(?)
     AND disponivel = 1
     """, (nome,))
-    conn.commit()
     alterados = cursor.rowcount
+
+    conn.commit()
     conn.close()
     return alterados
 
 def devolver_livro_db(nome):
     conn = conectar()
     cursor = conn.cursor()
+
     cursor.execute("""
     UPDATE livros
-    set disponivel = 1
+    SET disponivel = 1
     WHERE LOWER(nome) = LOWER(?)
     AND disponivel =0
     """, (nome,))
-    conn.commit()
     alterados = cursor.rowcount
+
+    conn.commit()
     conn.close()
     return alterados
 
-def limpar_tabela():
+def deletar_livro_db(nome):
     conn = conectar()
     cursor = conn.cursor()
 
-    cursor.execute("DELETE FROM livros")
+    cursor.execute("""
+    DELETE FROM livros
+    WHERE LOWER(nome) = LOWER(?)
+    """, (nome,))
+    deletados = cursor.rowcount
 
     conn.commit()
     conn.close()
+    return deletados
