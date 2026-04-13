@@ -1,12 +1,16 @@
-from flask import Flask
+from flask import Flask,render_template
 from routes.livro_routes import livro_bp
+from flask_cors import CORS
+from system.database import criar_tabela
 
 app = Flask(__name__)
+CORS(app)
+criar_tabela()
 app.register_blueprint(livro_bp)
 
 @app.route("/")
 def home():
-    return "<h1>OK</h1>"
+    return render_template("index.html")
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=5500, debug=True)
