@@ -1,8 +1,15 @@
+# Python
+__pycache__/
+*.pyc
+venv/
 .venv/
-.idea/
+ 
+# Banco de dados local
+*.db
+ 
+# Ambiente
+.env
+ 
+# Editores/IDE
 .vscode/
-
-__pycache__
-/__pycache__
-
-data.db
+.idea/
